@@ -43,6 +43,8 @@ A pinterest-style layout site, shows illusts on [pixiv.net](http://pixiv.net) or
 
 ## Dev
 
+[Demo](https://moe.pixiv.pics)
+
 ```bash
 # Start for development
 $ git clone https://github.com/kokororin/pixiv.moe
