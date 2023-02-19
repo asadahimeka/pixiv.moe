@@ -34,7 +34,8 @@ const GalleryList: React.FC<GalleryListProps> = props => {
     <StackGrid
       ref={gridRef}
       className={classes.stackGrid}
-      columnWidth={180}
+      duration={0}
+      columnWidth={300}
       gutterWidth={10}
       component="div"
       itemComponent="div"

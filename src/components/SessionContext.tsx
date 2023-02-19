@@ -5,8 +5,8 @@ import useAsyncEffect from 'use-async-effect';
 import supportsWebP from 'supports-webp';
 import Loading from './Loading';
 import Message from './Message';
-import * as api from '../utils/api';
-import Storage from '../utils/Storage';
+// import * as api from '../utils/api';
+// import Storage from '../utils/Storage';
 
 const useStyles = makeStyles({
   loading: {
@@ -23,35 +23,36 @@ const SessionContext: React.FC<{}> = props => {
   const intl = useIntl();
   const [token, setToken] = useState('');
   const [loading, setLoading] = useState(true);
-  const [message, setMessage] = useState(
+  const [message /* , setMessage */] = useState(
     intl.formatMessage({
       id: 'This page is not available in your area'
     })
   );
 
   useAsyncEffect(async () => {
-    try {
-      const data = await api.session();
-      setToken(data.response.access_token);
-      Storage.set('token', data.response.access_token);
-      api.refreshToken();
-      setLoading(false);
-      if (await supportsWebP) {
-        document.body.classList.add('supports-webp');
-      } else {
-        document.body.classList.add('not-supports-webp');
-      }
-    } catch (err) {
-      setLoading(false);
-      if (err instanceof api.APIError) {
-        setMessage(err.message);
-      } else if (
-        err instanceof TypeError &&
-        err.message === 'Failed to fetch'
-      ) {
-        setMessage('Failed to fetch');
-      }
+    // try {
+    // const data = await api.session();
+    // setToken(data.response.access_token);
+    setToken('data.response.access_token');
+    // Storage.set('token', data.response.access_token);
+    // api.refreshToken();
+    setLoading(false);
+    if (await supportsWebP) {
+      document.body.classList.add('supports-webp');
+    } else {
+      document.body.classList.add('not-supports-webp');
     }
+    // } catch (err) {
+    //   setLoading(false);
+    //   if (err instanceof api.APIError) {
+    //     setMessage(err.message);
+    //   } else if (
+    //     err instanceof TypeError &&
+    //     err.message === 'Failed to fetch'
+    //   ) {
+    //     setMessage('Failed to fetch');
+    //   }
+    // }
   }, []);
 
   if (loading) {

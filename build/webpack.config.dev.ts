@@ -10,7 +10,7 @@ const config: webpack.Configuration = {
     contentBase: './src/',
     historyApiFallback: true,
     inline: true,
-    port: 23333,
+    port: 8080,
     host: '0.0.0.0',
     publicPath: '/',
     noInfo: false,
@@ -48,7 +48,7 @@ const config: webpack.Configuration = {
       inject: 'body',
       minify: false
     }),
-    new OpenBrowserPlugin({ url: 'http://localhost:23333' }),
+    new OpenBrowserPlugin({ url: 'http://localhost:8080' }),
     new webpack.HotModuleReplacementPlugin(),
     new FriendlyErrorsPlugin()
   ]

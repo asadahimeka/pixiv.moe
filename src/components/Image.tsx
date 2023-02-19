@@ -92,7 +92,8 @@ export default class Image extends Component<ImageProps, ImageState> {
     } = this.props;
 
     const imageTransition = !disableTransition && {
-      opacity: this.state.imageLoaded ? 1 : 0,
+      // opacity: this.state.imageLoaded ? 1 : 0,
+      opacity: 1,
       filterBrightness: this.state.imageLoaded ? 100 : 0,
       filterSaturate: this.state.imageLoaded ? 100 : 20,
       transition: `

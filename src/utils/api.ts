@@ -38,21 +38,26 @@ export const removeAuth = (setAuthFunc?: (data: any) => void) => {
 
 honoka.interceptors.register({
   request: options => {
-    if (getAuth()?.access_token) {
-      options.headers['Proxy-Authorization'] = `Bearer ${
-        getAuth()?.access_token
-      }`;
-    }
-    if (Storage.get('token')) {
-      options.headers.Authorization = `Uid ${Storage.get('token')}`;
-    }
+    // if (getAuth()?.access_token) {
+    //   options.headers['Proxy-Authorization'] = `Bearer ${
+    //     getAuth()?.access_token
+    //   }`;
+    // }
+    // if (Storage.get('token')) {
+    //   options.headers.Authorization = `Uid ${Storage.get('token')}`;
+    // }
     return options;
   },
   response: response => {
-    if (response.data?.code !== 200) {
-      return new APIError(response.data?.message);
+    // if (response.data?.code !== 200) {
+    //   return new APIError(response.data?.message);
+    // }
+    if (response.data?.error || response.data?.detail) {
+      return new APIError(response.data?.error || response.data?.detail);
     }
-    return response.data;
+    return {
+      response: response.data
+    };
   }
 });
 
@@ -62,19 +67,19 @@ export const channels = () =>
   honoka.get('/v2/channels') as Promise<PixivResponse>;
 
 export const tags = (data: { lang: string }) =>
-  honoka.get('/v2/trending/tags', {
+  honoka.get('/tags', {
     data
   }) as Promise<PixivResponse>;
 
 export const ranking = (page: number) =>
-  honoka.get('/v2/ranking', {
+  honoka.get('/rank', {
     data: {
       page
     }
   }) as Promise<PixivResponse>;
 
 export const search = (data: { word: string; page: number }) =>
-  honoka.get('/v2/search', {
+  honoka.get('/search', {
     data
   }) as Promise<PixivResponse>;
 
@@ -88,10 +93,10 @@ export const searchBeta = (data: {
   }) as Promise<PixivResponse>;
 
 export const illust = (illustId: number | string) =>
-  honoka.get(`/v2/illust/${illustId}`) as Promise<PixivResponse>;
+  honoka.get(`/illust?id=${illustId}`) as Promise<PixivResponse>;
 
 export const illustUgoira = (illustId: number | string) =>
-  honoka.get(`/v2/illust/ugoira/${illustId}`) as Promise<PixivResponse>;
+  honoka.get(`/ugoira_metadata?id=${illustId}`) as Promise<PixivResponse>;
 
 export const illustComments = (
   illustId: number | string,
@@ -99,7 +104,7 @@ export const illustComments = (
     page: number;
   }
 ) =>
-  honoka.get(`/v2/illust/comments/${illustId}`, {
+  honoka.get(`/illust_comments?id=${illustId}`, {
     data
   }) as Promise<PixivResponse>;
 
@@ -116,18 +121,20 @@ export const proxyImage = (url: string) => {
   if (!url) {
     return url;
   }
-  const regex = /^https?:\/\/(i\.pximg\.net)|(source\.pixiv\.net)/i;
+  // const regex = /^https?:\/\/(i\.pximg\.net)|(source\.pixiv\.net)/i;
+  const regex = /^https?:\/\/(i\.pximg\.net)/i;
   if (regex.test(url)) {
-    url = `${config.apiBaseURL}/image/${url.replace(/^https?:\/\//, '')}`;
-    if (
-      process.env.NODE_ENV !== 'test' &&
-      document.body.classList.contains('supports-webp') &&
-      (url.indexOf('.png') > -1 ||
-        url.indexOf('.jpg') > -1 ||
-        url.indexOf('.jpeg') > -1)
-    ) {
-      url = `${url}@progressive.webp`;
-    }
+    url = url.replace('i.pximg.net', 'pximg.cocomi.cf');
+    // url = `https://api.pixiv.moe/image/${url.replace(/^https?:\/\//, '')}`;
+    // if (
+    //   process.env.NODE_ENV !== 'test' &&
+    //   document.body.classList.contains('supports-webp') &&
+    //   (url.indexOf('.png') > -1 ||
+    //     url.indexOf('.jpg') > -1 ||
+    //     url.indexOf('.jpeg') > -1)
+    // ) {
+    //   url = `${url}@progressive.webp`;
+    // }
   }
 
   return url;

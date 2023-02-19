@@ -10,7 +10,12 @@ import {
   ListItemIcon,
   ListItemText,
   ListSubheader,
-  Button
+  Button,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  SelectChangeEvent
 } from '@mui/material';
 import {
   Menu as MenuIcon,
@@ -192,6 +197,9 @@ const Gallery: React.FC<{}> = () => {
           const highlight =
             elem.tag === gallery.word ||
             (gallery.word === 'ranking' && ranking);
+          const tagName = elem.translated_name
+            ? ` (${elem.translated_name})`
+            : '';
 
           return (
             <ListItem
@@ -208,7 +216,7 @@ const Gallery: React.FC<{}> = () => {
                 primary={
                   ranking
                     ? intl.formatMessage({ id: 'Ranking' })
-                    : elem.translated_name
+                    : elem.tag + tagName
                 }
               />
             </ListItem>
@@ -220,6 +228,14 @@ const Gallery: React.FC<{}> = () => {
 
   const onToggleDrawer = () => {
     setIsDrawerOpen(!isDrawerOpen);
+  };
+
+  const [usersIriTag, setUsersIriTag] = React.useState('');
+
+  const handleUsersIriChange = (event: SelectChangeEvent) => {
+    gallery.usersIriTag = event.target.value;
+    setUsersIriTag(event.target.value);
+    refreshContent();
   };
 
   return useObserver(() => (
@@ -236,12 +252,45 @@ const Gallery: React.FC<{}> = () => {
         </IconButton>
       )}
       extraRender={() => (
-        <SearchInput
-          ref={inputRef}
-          onSearch={onSearch}
-          onOptionsChange={onSearchOptionsChange}
-          searchOptions={searchOptions}
-        />
+        <>
+          {gallery.word !== 'ranking' && (
+            <FormControl
+              sx={{
+                minWidth: 100,
+                marginRight: 2,
+                color: '#fff',
+                '& .MuiSelect-select, & .MuiSelect-icon ': { color: '#fff' },
+                '& .MuiOutlinedInput-notchedOutline': { borderColor: '#fff' }
+              }}
+              size="small">
+              <InputLabel id="usersiri-select-label" sx={{ color: '#fff' }}>
+                users入り
+              </InputLabel>
+              <Select
+                labelId="usersiri-select-label"
+                id="usersiri-select"
+                value={usersIriTag}
+                label="users入り"
+                onChange={handleUsersIriChange}>
+                <MenuItem value={'30000users入り'}>30000users入り</MenuItem>
+                <MenuItem value={'20000users入り'}>20000users入り</MenuItem>
+                <MenuItem value={'10000users入り'}>10000users入り</MenuItem>
+                <MenuItem value={'7500users入り'}>7500users入り</MenuItem>
+                <MenuItem value={'5000users入り'}>5000users入り</MenuItem>
+                <MenuItem value={'1000users入り'}>1000users入り</MenuItem>
+                <MenuItem value={'500users入り'}>500users入り</MenuItem>
+                <MenuItem value={'250users入り'}>250users入り</MenuItem>
+                <MenuItem value={'100users入り'}>100users入り</MenuItem>
+              </Select>
+            </FormControl>
+          )}
+          <SearchInput
+            ref={inputRef}
+            onSearch={onSearch}
+            onOptionsChange={onSearchOptionsChange}
+            searchOptions={searchOptions}
+          />
+        </>
       )}
       scroll={{
         infinite: true,
@@ -289,6 +338,7 @@ const Gallery: React.FC<{}> = () => {
         <div
           tabIndex={0}
           role="button"
+          style={{ minWidth: 200 }}
           onClick={onToggleDrawer}
           onKeyDown={onToggleDrawer}>
           <List

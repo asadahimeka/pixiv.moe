@@ -59,7 +59,7 @@ const createStore = () => {
           page: store.page
         });
         if (data.response.comments) {
-          if (data.response.next) {
+          if (data.response.next_url) {
             store.page = store.page + 1;
           } else {
             store.isCommentsEnd = true;

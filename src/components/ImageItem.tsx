@@ -7,7 +7,7 @@ import * as api from '../utils/api';
 
 const useStyles = makeStyles({
   cell: {
-    width: 175,
+    width: 300,
     minHeight: 100,
     padding: 0,
     background: '#fff',
@@ -21,10 +21,10 @@ const useStyles = makeStyles({
       boxShadow: '0 1px 5px rgba(34, 25, 25, 0.8)'
     },
     '@media screen and (max-width: 400px)': {
-      width: 160
+      // width: 160
     },
     '@media screen and (max-width: 320px)': {
-      width: 140
+      // width: 140
     }
   },
   link: {

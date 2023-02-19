@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>pixiv萌え</title>
 <% if (process.env.NODE_ENV === 'production') { %>
   <link rel="manifest" href="/manifest.json">
@@ -10,11 +11,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
   <meta name="description" content="pixiv.moe - pixiv萌え" />
   <meta name="keywords" content="pixiv,pixiv萌え,pixivMoe,pixiv人気のタグ" />
-  <meta name="google-site-verification" content="aHrpJZ8M_WPQb07omJ2bwC2fg2DQMgFFEovu9wsSD0E" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="applicable-device" content="mobile">
-  <link rel="dns-prefetch" href="//api.pixiv.moe">
-  <link rel="dns-prefetch" href="//www.pixiv.net">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="x-dns-prefetch-control" content="on" />
+  <link rel="dns-prefetch" href="https://hibi.cocomi.cf">
+  <link rel="dns-prefetch" href="https://pximg.cocomi.cf">
+  <link rel="preconnect" href="https://hibi.cocomi.cf" crossorigin="anonymous" />
+  <link rel="preconnect" href="https://pximg.cocomi.cf" crossorigin="anonymous" />
   <link rel="shortcut icon" href="/assets/favicon.ico?v=1.16.1" type="image/x-icon" />
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=1.16.1" />
   <link rel="apple-touch-icon" sizes="57x57" href="/assets/apple-touch-icon-57x57.png?v=1.16.1" />
@@ -62,7 +66,6 @@
   </style>
   <![endif]-->
 
-<script data-ad-client="ca-pub-4077225223001035" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </head>
 
 <body>
@@ -99,6 +102,7 @@
   })();
   </script>
 <% if (process.env.NODE_ENV === 'production') { %>
+  <script async defer data-website-id="02bb7ca8-9ac8-478d-9d1d-f0040409dd96" src="https://ummst.nanoka.top/5y6l9drdtjx.js"></script>
   <script>
   (function() {
     if ('serviceWorker' in navigator) {

@@ -134,7 +134,9 @@ const useStyles = makeStyles({
     }
   },
   comments: {
-    width: '100%'
+    width: '50%',
+    minWidth: '300px',
+    margin: '40px auto'
   },
   commentList: {
     display: 'block',

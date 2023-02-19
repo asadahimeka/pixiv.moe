@@ -25,8 +25,8 @@ const useStyles = makeStyles({
     flexGrow: 2,
     textDecoration: 'none',
     boxSizing: 'border-box',
-    display: 'flex',
-    alignItems: 'center'
+    display: 'flex'
+    // alignItems: 'center'
   },
   avatar: {
     marginRight: 16,
@@ -93,20 +93,34 @@ const Comment: React.FC<CommentProps> = ({ item }) => {
       <span className={classes.main}>
         <div className={classes.avatar}>
           <Img
-            src={[api.proxyImage(item.img)]}
+            src={[api.proxyImage(item?.user?.profile_image_urls?.medium)]}
             loader={
-              <img src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" />
+              <img
+                src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs="
+                alt={''}
+              />
             }
           />
         </div>
         <span>
-          {item.user_name}
-          <span
-            className={classes.content}
-            dangerouslySetInnerHTML={{
-              __html: EmojiParser.parse(item.one_comment_comment)
-            }}
-          />
+          {item?.user?.name}
+          {item?.stamp?.stamp_url ? (
+            <div style={{ marginTop: 10 }}>
+              <img
+                src={item?.stamp?.stamp_url}
+                alt={''}
+                style={{ maxWidth: 64 }}
+              />
+            </div>
+          ) : (
+            <span
+              className={classes.content}
+              style={{ marginTop: 10 }}
+              dangerouslySetInnerHTML={{
+                __html: EmojiParser.parse(item.comment)
+              }}
+            />
+          )}
         </span>
       </span>
     </li>

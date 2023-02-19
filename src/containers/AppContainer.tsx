@@ -19,7 +19,7 @@ import { history } from '../stores';
 import Baseline from '../components/Baseline';
 import ScrollContext from '../components/ScrollContext';
 import SessionContext from '../components/SessionContext';
-import TrackPageView from '../components/TrackPageView';
+// import TrackPageView from '../components/TrackPageView';
 import { AlertProvider } from '../components/Alert';
 
 const theme = createTheme({
@@ -63,9 +63,9 @@ const AppContainer = () => (
         <Baseline>
           <Router history={history}>
             <SessionContext>
-              <TrackPageView>
-                <ScrollContext>{renderRoutes(routes)}</ScrollContext>
-              </TrackPageView>
+              {/* <TrackPageView> */}
+              <ScrollContext>{renderRoutes(routes)}</ScrollContext>
+              {/* </TrackPageView> */}
             </SessionContext>
           </Router>
         </Baseline>

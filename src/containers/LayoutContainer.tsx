@@ -10,11 +10,11 @@ import { useTitle, useMount, useUnmount } from 'ahooks';
 import makeStyles from '@mui/styles/makeStyles';
 import { AppBar, Toolbar, Typography } from '@mui/material';
 import Content, { ContentHandles } from '../components/Content';
-import LanguageSelector from '../components/LanguageSelector';
-import LoginContainer, {
-  LoginContainerHandles,
-  UserButton
-} from '../containers/LoginContainer';
+// import LanguageSelector from '../components/LanguageSelector';
+// import LoginContainer, {
+//   LoginContainerHandles,
+//   UserButton
+// } from '../containers/LoginContainer';
 
 export const useStyles = makeStyles({
   toolbar: {
@@ -62,7 +62,7 @@ const LayoutContainer = forwardRef<
   const classes = useStyles();
   const location = useLocation();
   const contentRef = useRef<ContentHandles>(null);
-  const loginRef = useRef<LoginContainerHandles>(null);
+  // const loginRef = useRef<LoginContainerHandles>(null);
   const [ignoreScrollEvents, setIgnoreScrollEvents] = useState(false);
 
   const onHeaderClick = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -143,7 +143,7 @@ const LayoutContainer = forwardRef<
       contentRef?.current?.toTop();
     },
     openLogin: () => {
-      loginRef?.current?.open();
+      // loginRef?.current?.open();
     },
     getContentContainer: () => {
       return contentRef?.current?.getContainer();
@@ -165,15 +165,15 @@ const LayoutContainer = forwardRef<
           </Typography>
           <div className={classes.toolbarMiddle} />
           {props.extraRender && <>{props.extraRender()}</>}
-          <LanguageSelector />
-          <UserButton onClick={() => loginRef.current?.open()} />
+          {/* <LanguageSelector /> */}
+          {/* <UserButton onClick={() => loginRef.current?.open()} /> */}
         </Toolbar>
       </AppBar>
 
       <Content ref={contentRef}>
         <>{props.children}</>
       </Content>
-      <LoginContainer ref={loginRef} />
+      {/* <LoginContainer ref={loginRef} /> */}
     </>
   );
 });

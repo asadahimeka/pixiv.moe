@@ -1,5 +1,3 @@
-import * as api from './api';
-
 export default class EmojiParser {
   static emojiSeries = [
     {
@@ -157,13 +155,11 @@ export default class EmojiParser {
   ];
 
   static parse(content: string) {
-    return content.replace(/(\(.+?\))/g, match => {
+    return content?.replace(/(\(.+?\))/g, match => {
       let replaceStr = '';
       for (const series of EmojiParser.emojiSeries) {
         if (match === `(${series.name})`) {
-          replaceStr += `<img src="${api.proxyImage(
-            `https://source.pixiv.net/common/images/emoji/${series.id}.png`
-          )}" />`;
+          replaceStr += `<img src="https://s.pximg.net/common/images/emoji/${series.id}.png" />`;
         }
       }
       return replaceStr === '' ? match : replaceStr;

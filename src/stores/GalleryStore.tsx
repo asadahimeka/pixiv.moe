@@ -8,6 +8,7 @@ export const createStore = () => {
   const store = observable({
     page: 1,
     xRestrict: false,
+    usersIriTag: '',
     isFetching: false,
     isError: false,
     errorMsg: '',
@@ -26,14 +27,19 @@ export const createStore = () => {
       store.isError = false;
       store.isFetching = true;
       try {
-        const data =
-          store.word === 'ranking'
-            ? await api.ranking(store.page)
-            : await api.search({
-                word: store.word,
-                page: store.page
-                // x_restrict: store.xRestrict ? 1 : 0
-              });
+        let data;
+        if (store.word === 'ranking') {
+          data = await api.ranking(store.page);
+        } else {
+          let word = store.word;
+          if (!store.xRestrict) word += ' -R-18 -R18';
+          if (store.usersIriTag) word += ' ' + store.usersIriTag;
+          data = await api.search({
+            word,
+            page: store.page
+            // x_restrict: store.xRestrict ? 1 : 0
+          });
+        }
         if (data.response.illusts && data.response.illusts.length > 0) {
           store.items = [...store.items, ...data.response.illusts];
         } else {
@@ -60,8 +66,8 @@ export const createStore = () => {
         const data = await api.tags({
           lang: Storage.get('lang')
         });
-        if (data.response.tags) {
-          store.tags = data.response.tags;
+        if (data.response.trend_tags) {
+          store.tags = data.response.trend_tags;
         }
       } finally {
         store.isFetchingTags = false;
