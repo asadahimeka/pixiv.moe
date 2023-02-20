@@ -7,8 +7,8 @@ import { IconButton, Avatar, Chip, Button } from '@mui/material';
 import {
   ArrowBack as ArrowBackIcon,
   Twitter as TwitterIcon,
-  Favorite as FavoriteIcon,
-  FavoriteBorder as FavoriteBorderIcon,
+  // Favorite as FavoriteIcon,
+  // FavoriteBorder as FavoriteBorderIcon,
   Cached as CachedIcon
 } from '@mui/icons-material';
 import shortid from 'shortid';
@@ -18,7 +18,7 @@ import { useObserver } from 'mobx-react-lite';
 import dayjs from 'dayjs';
 import useMetaTags from 'react-metatags-hook';
 
-import { useAlert } from '../components/Alert';
+// import { useAlert } from '../components/Alert';
 import Comment from '../components/Comment';
 import GifPlayer from '../components/GifPlayer';
 import Loading from '../components/Loading';
@@ -154,10 +154,10 @@ interface IllustRouteInfo {
 
 const Illust: React.FC<{}> = () => {
   const [shouldLogin] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  // const [isSubmitting, setIsSubmitting] = useState(false);
   const [boxIndex, setBoxIndex] = useState(0);
   const [showBox, setShowBox] = useState(false);
-  const [isBookmarked, setIsBookmarked] = useState(false);
+  // const [isBookmarked, setIsBookmarked] = useState(false);
 
   const classes = useStyles();
 
@@ -169,7 +169,7 @@ const Illust: React.FC<{}> = () => {
 
   const { illustId } = useParams<IllustRouteInfo>();
   const layoutRef = useRef<LayoutContainerHandles>(null);
-  const makeAlert = useAlert();
+  // const makeAlert = useAlert();
 
   // const fetchBookmark = async ()  => {
   //   t ry {
@@ -196,30 +196,30 @@ const Illust: React.FC<{}> = () => {
     history.push('/');
   };
 
-  const onBookmarkClick = async () => {
-    const authData = api.getAuth();
-    if (!authData) {
-      return layoutRef.current?.openLogin();
-    }
+  // const onBookmarkClick = async () => {
+  //   const authData = api.getAuth();
+  //   if (!authData) {
+  //     return layoutRef.current?.openLogin();
+  //   }
 
-    setIsSubmitting(true);
+  //   setIsSubmitting(true);
 
-    try {
-      await api[!isBookmarked ? 'illustBookmarkAdd' : 'illustBookmarkDelete'](
-        illustId
-      );
-      setIsSubmitting(false);
-      setIsBookmarked(!isBookmarked);
-    } catch (err) {
-      makeAlert(
-        'error',
-        intl.formatMessage({
-          id: 'Communication Error Occurred'
-        })
-      );
-      setIsSubmitting(false);
-    }
-  };
+  //   try {
+  //     await api[!isBookmarked ? 'illustBookmarkAdd' : 'illustBookmarkDelete'](
+  //       illustId
+  //     );
+  //     setIsSubmitting(false);
+  //     setIsBookmarked(!isBookmarked);
+  //   } catch (err) {
+  //     makeAlert(
+  //       'error',
+  //       intl.formatMessage({
+  //         id: 'Communication Error Occurred'
+  //       })
+  //     );
+  //     setIsSubmitting(false);
+  //   }
+  // };
 
   const onImageClick = (index: number) => {
     setBoxIndex(index);
@@ -399,7 +399,7 @@ const Illust: React.FC<{}> = () => {
             })}
           </div>
           <div className={classes.actions}>
-            <Button
+            {/* <Button
               variant="outlined"
               startIcon={
                 isBookmarked ? (
@@ -411,7 +411,7 @@ const Illust: React.FC<{}> = () => {
               onClick={onBookmarkClick}
               disabled={isSubmitting}>
               {intl.formatMessage({ id: 'Add to Bookmarks' })}
-            </Button>
+            </Button> */}
             <Button
               variant="outlined"
               startIcon={<TwitterIcon style={{ color: '#38A1F3' }} />}
@@ -503,7 +503,8 @@ const Illust: React.FC<{}> = () => {
           distance: 200,
           onLoadMore: () => illust.fetchComments(illustId),
           isLoading: illust.isFetchingComments,
-          hasMore: !illust.isCommentsEnd
+          hasMore: false
+          // hasMore: !illust.isCommentsEnd
         }}>
         {shouldLogin ? (
           <Message

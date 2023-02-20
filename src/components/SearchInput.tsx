@@ -131,7 +131,7 @@ const SearchInput = forwardRef<SearchInputHandles, SearchInputProps>(
           <SearchIcon />
         </div>
         <input ref={inputRef} className={classes.searchInput} />
-        {process.env.NODE_ENV === 'development' && (
+        {
           <div className={classes.searchOptionCheckbox}>
             <FormControlLabel
               style={{ marginLeft: 0 }}
@@ -146,7 +146,7 @@ const SearchInput = forwardRef<SearchInputHandles, SearchInputProps>(
               label="R-18"
             />
           </div>
-        )}
+        }
       </div>
     );
   }

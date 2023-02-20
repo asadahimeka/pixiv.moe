@@ -10,17 +10,21 @@ import {
   ListItemIcon,
   ListItemText,
   ListSubheader,
-  Button,
+  // Button,
   FormControl,
   InputLabel,
   Select,
   MenuItem,
-  SelectChangeEvent
+  SelectChangeEvent,
+  TextField,
+  Box,
+  FormControlLabel,
+  Switch
 } from '@mui/material';
 import {
   Menu as MenuIcon,
-  Done as DoneIcon,
-  Cached as CachedIcon
+  Done as DoneIcon
+  // Cached as CachedIcon
 } from '@mui/icons-material';
 import { useIntl } from 'react-intl';
 import { useObserver } from 'mobx-react-lite';
@@ -44,6 +48,9 @@ import LayoutContainer, {
 } from '../containers/LayoutContainer';
 
 import { GalleryContext } from '../stores/GalleryStore';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import AdapterDayjs from '@mui/lab/AdapterDayjs';
+import { DatePicker } from '@mui/lab';
 
 const useStyles = makeStyles({
   root: {
@@ -80,9 +87,9 @@ const Gallery: React.FC<{}> = () => {
   };
 
   const onLoadMore = () => {
-    if (gallery.errorTimes < 3) {
-      fetchSource(false);
-    }
+    if (gallery.isPopPreview) return;
+    if (gallery.errorTimes > 1) return;
+    fetchSource(false);
   };
 
   const refreshContent = () => {
@@ -230,11 +237,29 @@ const Gallery: React.FC<{}> = () => {
     setIsDrawerOpen(!isDrawerOpen);
   };
 
-  const [usersIriTag, setUsersIriTag] = React.useState('');
+  const [usersIriTag, setUsersIriTag] = React.useState(gallery.usersIriTag);
+  const [rankMode, setRankMode] = React.useState(gallery.rankMode);
+  const [rankDate, setRankDate] = React.useState(gallery.rankDate);
+  const [isPopPreview, setIsPopPreview] = React.useState(gallery.isPopPreview);
 
   const handleUsersIriChange = (event: SelectChangeEvent) => {
     gallery.usersIriTag = event.target.value;
     setUsersIriTag(event.target.value);
+    refreshContent();
+  };
+  const handleRankModeChange = (event: SelectChangeEvent) => {
+    gallery.rankMode = event.target.value;
+    setRankMode(event.target.value);
+    refreshContent();
+  };
+  const handleRankDateChange = (val: any) => {
+    gallery.rankDate = val.format('YYYY-MM-DD');
+    setRankDate(gallery.rankDate);
+    refreshContent();
+  };
+  const handlePopChange = (event: any) => {
+    gallery.isPopPreview = event.target.checked;
+    setIsPopPreview(event.target.checked);
     refreshContent();
   };
 
@@ -290,6 +315,18 @@ const Gallery: React.FC<{}> = () => {
             onOptionsChange={onSearchOptionsChange}
             searchOptions={searchOptions}
           />
+          {gallery.word !== 'ranking' && (
+            <FormControlLabel
+              label="热门预览"
+              control={
+                <Switch
+                  color="secondary"
+                  checked={isPopPreview}
+                  onChange={handlePopChange}
+                />
+              }
+            />
+          )}
         </>
       )}
       scroll={{
@@ -308,10 +345,39 @@ const Gallery: React.FC<{}> = () => {
         />
       ) : (
         <div className={classes.root}>
+          {gallery.word === 'ranking' && (
+            <Box sx={{ mt: 2 }} display={'flex'} justifyContent={'center'}>
+              <FormControl sx={{ minWidth: 100, mr: 1 }} size="small">
+                <Select value={rankMode} onChange={handleRankModeChange}>
+                  <MenuItem value={'day'}>日榜</MenuItem>
+                  <MenuItem value={'week'}>周榜</MenuItem>
+                  <MenuItem value={'month'}>月榜</MenuItem>
+                  <MenuItem value={'day_male'}>男性向</MenuItem>
+                  <MenuItem value={'day_female'}>女性向</MenuItem>
+                  <MenuItem value={'week_original'}>原创</MenuItem>
+                  <MenuItem value={'week_rookie'}>新人</MenuItem>
+                  <MenuItem value={'day_ai'}>AI</MenuItem>
+                  <MenuItem value={'day_r18'}>R18 日</MenuItem>
+                  <MenuItem value={'day_male_r18'}>R18 男</MenuItem>
+                  <MenuItem value={'day_female_r18'}>R18 女</MenuItem>
+                  <MenuItem value={'week_r18'}>R18 周</MenuItem>
+                  <MenuItem value={'week_r18g'}>R18G 周</MenuItem>
+                  <MenuItem value={'day_r18_ai'}>R18 AI</MenuItem>
+                </Select>
+              </FormControl>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  value={rankDate}
+                  onChange={handleRankDateChange}
+                  renderInput={params => <TextField {...params} size="small" />}
+                />
+              </LocalizationProvider>
+            </Box>
+          )}
           {gallery.items.length === 0 && gallery.isFetching && <Loading />}
           <GalleryList items={gallery.items} />
           {gallery.items.length > 0 && gallery.isFetching && <Loading />}
-          {gallery.isError && (
+          {/* {gallery.isError && (
             <>
               <Message
                 text={
@@ -330,7 +396,7 @@ const Gallery: React.FC<{}> = () => {
                 </Button>
               </div>
             </>
-          )}
+          )} */}
           {/* <Refresh onClick={refreshContent} /> */}
         </div>
       )}

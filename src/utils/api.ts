@@ -71,10 +71,19 @@ export const tags = (data: { lang: string }) =>
     data
   }) as Promise<PixivResponse>;
 
-export const ranking = (page: number) =>
+export const ranking = (page: number, mode: string, date: string) =>
   honoka.get('/rank', {
     data: {
-      page
+      page,
+      mode,
+      date
+    }
+  }) as Promise<PixivResponse>;
+
+export const popPreview = (word: string) =>
+  honoka.get('/popular_preview', {
+    data: {
+      word
     }
   }) as Promise<PixivResponse>;
 

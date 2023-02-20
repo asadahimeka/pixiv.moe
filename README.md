@@ -3,7 +3,7 @@
 ![Build Status](https://github.com/kokororin/pixiv.moe/actions/workflows/ci.yml/badge.svg)
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
-A pinterest-style layout site, shows illusts on [pixiv.net](http://pixiv.net) order by popularity. Written with React.
+A pinterest-style layout site, shows illusts on [pixiv.net](http://pixiv.net). Written with React.
 
 # Table of Contents
 
@@ -77,7 +77,7 @@ docker run -p <port>:80 -d <customized-name>
 
 ## Localization
 
-App will auto detect your browser language and use the localization. You can set language manually in drawer.  
+App will auto detect your browser language and use the localization. You can set language manually in drawer.
 Help us if you can translate this app. Please follow the guide in `src/locale`.
 
 ## Contribute
