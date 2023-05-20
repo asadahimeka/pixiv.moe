@@ -356,13 +356,13 @@ const Gallery: React.FC<{}> = () => {
                   <MenuItem value={'day_female'}>女性向</MenuItem>
                   <MenuItem value={'week_original'}>原创</MenuItem>
                   <MenuItem value={'week_rookie'}>新人</MenuItem>
-                  <MenuItem value={'day_ai'}>AI</MenuItem>
+                  {/* <MenuItem value={'day_ai'}>AI</MenuItem>
                   <MenuItem value={'day_r18'}>R18 日</MenuItem>
                   <MenuItem value={'day_male_r18'}>R18 男</MenuItem>
                   <MenuItem value={'day_female_r18'}>R18 女</MenuItem>
                   <MenuItem value={'week_r18'}>R18 周</MenuItem>
                   <MenuItem value={'week_r18g'}>R18G 周</MenuItem>
-                  <MenuItem value={'day_r18_ai'}>R18 AI</MenuItem>
+                  <MenuItem value={'day_r18_ai'}>R18 AI</MenuItem> */}
                 </Select>
               </FormControl>
               <LocalizationProvider dateAdapter={AdapterDayjs}>

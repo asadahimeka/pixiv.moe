@@ -3,7 +3,7 @@ import { useMount } from 'ahooks';
 import makeStyles from '@mui/styles/makeStyles';
 import { useKeyPress } from 'ahooks';
 import { Search as SearchIcon } from '@mui/icons-material';
-import { FormControlLabel, Switch } from '@mui/material';
+// import { FormControlLabel, Switch } from '@mui/material';
 
 const useStyles = makeStyles({
   searchRoot: {
@@ -77,7 +77,7 @@ export interface SearchOptions {
   xRestrict: boolean;
 }
 
-type SearchOptionsKeys = keyof SearchOptions;
+// type SearchOptionsKeys = keyof SearchOptions;
 
 const SearchInput = forwardRef<SearchInputHandles, SearchInputProps>(
   (props, ref) => {
@@ -97,14 +97,14 @@ const SearchInput = forwardRef<SearchInputHandles, SearchInputProps>(
       }
     };
 
-    const onSwitchChange = (
-      key: SearchOptionsKeys,
-      event: React.ChangeEvent<HTMLInputElement>
-    ) => {
-      const { searchOptions } = { ...props };
-      searchOptions[key] = event.target.checked;
-      props.onOptionsChange(searchOptions);
-    };
+    // const onSwitchChange = (
+    //   key: SearchOptionsKeys,
+    //   event: React.ChangeEvent<HTMLInputElement>
+    // ) => {
+    //   const { searchOptions } = { ...props };
+    //   searchOptions[key] = event.target.checked;
+    //   props.onOptionsChange(searchOptions);
+    // };
 
     useKeyPress(
       'enter',
@@ -131,22 +131,20 @@ const SearchInput = forwardRef<SearchInputHandles, SearchInputProps>(
           <SearchIcon />
         </div>
         <input ref={inputRef} className={classes.searchInput} />
-        {
-          <div className={classes.searchOptionCheckbox}>
-            <FormControlLabel
-              style={{ marginLeft: 0 }}
-              control={
-                <Switch
-                  ref={switchRef}
-                  onChange={event => onSwitchChange('xRestrict', event)}
-                  name="xRestrict"
-                  color="primary"
-                />
-              }
-              label="R-18"
-            />
-          </div>
-        }
+        {/* <div className={classes.searchOptionCheckbox}>
+          <FormControlLabel
+            style={{ marginLeft: 0 }}
+            control={
+              <Switch
+                ref={switchRef}
+                onChange={event => onSwitchChange('xRestrict', event)}
+                name="xRestrict"
+                color="primary"
+              />
+            }
+            label="R-18"
+          />
+        </div> */}
       </div>
     );
   }
