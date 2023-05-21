@@ -39,7 +39,7 @@ export const createStore = () => {
           if (store.isPopPreview) {
             data = await api.popPreview(word);
           } else {
-            if (!store.xRestrict) word += ' -R-18 -R18 -18+';
+            if (!store.xRestrict) word += ' -R-18 -R18 -18+ -AI';
             if (store.usersIriTag) word += ' ' + store.usersIriTag;
             data = await api.search({
               word,

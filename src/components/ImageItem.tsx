@@ -116,9 +116,14 @@ const ImageItem: React.FC<ImageItemProps> = props => {
   };
 
   return (
-    <div className={classes.cell} onMouseMove={onImageMouseMove}>
+    <div
+      className={classes.cell}
+      onMouseMove={onImageMouseMove}
+      style={props.item.x_restrict > 0 ? { pointerEvents: 'none' } : {}}>
       <Link className={classes.link} to={`/illust/${props.item.id}`}>
-        <div className={classes.imageWrapper}>
+        <div
+          className={classes.imageWrapper}
+          style={props.item.x_restrict > 0 ? { filter: 'blur(40px)' } : {}}>
           <Image
             aspectRatio={props.item.width / props.item.height}
             src={api.proxyImage(props.item.image_urls.medium)}
