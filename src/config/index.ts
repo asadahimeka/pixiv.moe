@@ -6,7 +6,7 @@ interface Language {
 
 export const apiBaseURL = process.env.PIXIV_API_ENTRY
   ? process.env.PIXIV_API_ENTRY
-  : 'https://hibi.cocomi.cf/api/pixiv';
+  : 'https://hibiapi.cocomi.eu.org/api/pixiv';
 export const socketURL = process.env.PIXIV_API_ENTRY
   ? new URL(process.env.PIXIV_API_ENTRY).origin
   : 'https://api.pixiv.moe';
