@@ -133,7 +133,7 @@ export const proxyImage = (url: string) => {
   // const regex = /^https?:\/\/(i\.pximg\.net)|(source\.pixiv\.net)/i;
   const regex = /^https?:\/\/(i\.pximg\.net)/i;
   if (regex.test(url)) {
-    url = url.replace('i.pximg.net', 'pximg.cocomi.cf');
+    url = url.replace('i.pximg.net', 'pximg.cocomi.eu.org');
     // url = `https://api.pixiv.moe/image/${url.replace(/^https?:\/\//, '')}`;
     // if (
     //   process.env.NODE_ENV !== 'test' &&
