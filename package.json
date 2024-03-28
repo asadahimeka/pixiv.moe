@@ -5,7 +5,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=development TS_NODE_PROJECT=\"tsconfig-server.json\" webpack-dev-server --config build/webpack.config.ts",
     "dev": "cross-env NODE_ENV=development PIXIV_API_ENTRY=http://localhost:3000/pixiv TS_NODE_PROJECT=\"tsconfig-server.json\" webpack-dev-server --config build/webpack.config.ts",
-    "localbuild": "cross-env NODE_ENV=production TS_NODE_PROJECT=\"tsconfig-server.json\" webpack --config build/webpack.config.ts",
+    "localbuild": "cross-env NODE_OPTIONS=--openssl-legacy-provider NODE_ENV=production TS_NODE_PROJECT=\"tsconfig-server.json\" webpack --config build/webpack.config.ts",
     "build": "echo skip",
     "lint": "eslint --ext .ts,.tsx,.js,.jsx src",
     "lint:fix": "eslint --ext .ts,.tsx,.js,.jsx --fix src",
